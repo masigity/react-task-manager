@@ -1,0 +1,158 @@
+/* ===== Dashboard charts (self-contained, all classes start with dc-) ===== */
+
+.dc-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  padding: 14px;
+  margin-bottom: 20px;
+  border: 1px solid #deded8;
+  border-radius: 4px;
+  background: #fff;
+  font-family: inherit;
+}
+
+.dc-empty {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: #92928a;
+}
+
+.dc-title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #34352f;
+}
+
+.dc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  min-height: 16px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #77786f;
+}
+
+.dc-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dc-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.dc-chart-box {
+  position: relative;
+  height: 190px;
+}
+
+.dc-donut {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Bar chart built from plain elements */
+
+.dc-bars {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 16px;
+  box-sizing: border-box;
+}
+
+.dc-plot {
+  position: relative;
+  flex: 1;
+  margin-left: 26px;
+  border-bottom: 1px solid #deded8;
+}
+
+.dc-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px solid #e5e5df;
+}
+
+.dc-grid span {
+  position: absolute;
+  top: -7px;
+  left: -26px;
+  width: 20px;
+  text-align: right;
+  font-size: 11px;
+  color: #85857d;
+}
+
+.dc-bar-row {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.dc-bar-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.dc-bar-value {
+  margin-bottom: 3px;
+  font-size: 11px;
+  color: #34352f;
+}
+
+.dc-bar {
+  width: 100%;
+  max-width: 36px;
+  border-radius: 4px 4px 0 0;
+}
+
+.dc-axis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 26px;
+  padding-top: 6px;
+  font-size: 11px;
+  color: #85857d;
+  text-align: center;
+}
+
+.dc-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dc-center strong {
+  font-size: 22px;
+  font-weight: 600;
+  color: #24251f;
+}
+
+.dc-center span {
+  font-size: 11px;
+  color: #85857d;
+}
+
+@media (max-width: 650px) {
+  .dc-panel {
+    grid-template-columns: 1fr;
+  }
+}
