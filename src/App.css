@@ -192,7 +192,11 @@ select {
 .task-form {
   display: flex;
   gap: 7px;
-  margin: 10px 0 16px;
+  padding: 14px;
+  margin: 0 0 12px;
+  border: 1px solid #deded8;
+  border-radius: 4px;
+  background: #fcfcfa;
 }
 
 .task-form input {
@@ -202,7 +206,7 @@ select {
   padding: 0 10px;
   border: 1px solid #deded8;
   border-radius: 3px;
-  background: transparent;
+  background: #fff;
   font-size: 12px;
   color: #24251f;
   outline: none;
@@ -271,7 +275,10 @@ select {
 /* Task list */
 
 .task-list {
-  border-top: 1px solid #deded8;
+  padding: 0 14px;
+  border: 1px solid #deded8;
+  border-radius: 4px;
+  background: #fcfcfa;
 }
 
 .task-row {
@@ -281,6 +288,10 @@ select {
   justify-content: space-between;
   border-bottom: 1px solid #deded8;
   padding: 0 4px;
+}
+
+.task-row:last-child {
+  border-bottom: none;
 }
 
 .task-title {
@@ -410,7 +421,7 @@ select {
   padding: 8px 10px;
   border: 1px solid #deded8;
   border-radius: 3px;
-  background: transparent;
+  background: #fff;
   color: #34352f;
   font-size: 12px;
   outline: none;
@@ -427,6 +438,26 @@ select {
 
 /* Filter Tasks */
 
+/* Overview: one box, filters on the left and charts on the right */
+
+.overview {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.overview .filter-panel {
+  align-content: start;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .overview {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Filter panel: search on top, status and priority rows below */
 
 .filter-panel {
@@ -436,7 +467,7 @@ select {
   margin-bottom: 12px;
   border: 1px solid #deded8;
   border-radius: 4px;
-  background: #fff;
+  background: #fcfcfa;
 }
 
 .search-box {

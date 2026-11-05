@@ -3,12 +3,12 @@
 .dc-panel {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+  gap: 20px;
   padding: 14px;
   margin-bottom: 20px;
   border: 1px solid #deded8;
   border-radius: 4px;
-  background: #fff;
+  background: #fcfcfa;
   font-family: inherit;
 }
 
@@ -50,7 +50,90 @@
 
 .dc-chart-box {
   position: relative;
-  height: 190px;
+  height: 140px;
+}
+
+/* Inside the overview grid the layout gap replaces the bottom margin */
+
+.overview .dc-panel {
+  margin: 0;
+}
+
+.dc-donut {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Bar chart built from plain elements */
+
+.dc-bars {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 16px;
+  box-sizing: border-box;
+}
+
+.dc-plot {
+  position: relative;
+  flex: 1;
+  margin-left: 26px;
+  border-bottom: 1px solid #deded8;
+}
+
+.dc-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px solid #e5e5df;
+}
+
+.dc-grid span {
+  position: absolute;
+  top: -7px;
+  left: -26px;
+  width: 20px;
+  text-align: right;
+  font-size: 11px;
+  color: #85857d;
+}
+
+.dc-bar-row {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.dc-bar-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.dc-bar-value {
+  margin-bottom: 3px;
+  font-size: 11px;
+  color: #34352f;
+}
+
+.dc-bar {
+  width: 100%;
+  max-width: 36px;
+  border-radius: 4px 4px 0 0;
+}
+
+.dc-axis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-left: 26px;
+  padding-top: 6px;
+  font-size: 11px;
+  color: #85857d;
+  text-align: center;
 }
 
 .dc-center {
@@ -64,7 +147,7 @@
 }
 
 .dc-center strong {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
   color: #24251f;
 }
@@ -74,7 +157,7 @@
   color: #85857d;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 480px) {
   .dc-panel {
     grid-template-columns: 1fr;
   }

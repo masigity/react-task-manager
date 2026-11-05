@@ -321,9 +321,10 @@ function App() {
 
           {currentPage === "dashboard" && (
             <section className="tasks-section">
-              <DashboardCharts tasks={tasks} />
-
               <h2>My Tasks</h2>
+
+              {/* One section: filters on the left, charts on the right */}
+              <div className="overview">
 
               {/* Search and filters panel */}
               <div className="filter-panel">
@@ -407,6 +408,10 @@ function App() {
                     );
                   })}
               </div>
+
+              </div>
+
+              <DashboardCharts tasks={tasks} />
 
               </div>
 
