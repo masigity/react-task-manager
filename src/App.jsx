@@ -8,6 +8,7 @@ import TaskList from "./components/TaskList";
 import ActivityLog from "./components/ActivityLog";
 import { SearchIcon } from "./components/Icons";
 import DashboardCharts from "./components/DashboardCharts";
+import StatusPanel from "./components/StatusPanel";
 
 import "./App.css";
 
@@ -321,7 +322,7 @@ function App() {
 
           {currentPage === "dashboard" && (
             <section className="tasks-section">
-              <h2>My Tasks</h2>
+              <StatusPanel tasks={tasks} activityLog={activityLog} />
 
               {/* One section: filters on the left, charts on the right */}
               <div className="overview">

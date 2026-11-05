@@ -1,0 +1,106 @@
+/* ===== Status panel (self-contained, all classes start with sp-) ===== */
+
+.sp-panel {
+  display: grid;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border, #deded8);
+  border-radius: 4px;
+  background: var(--panel, #fcfcfa);
+  font-family: inherit;
+}
+
+.sp-main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sp-sentence {
+  font-size: 14px;
+  color: var(--text, #24251f);
+  line-height: 1.5;
+}
+
+/* Health label */
+
+.sp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.sp-ok {
+  background: rgba(120, 129, 106, 0.18);
+  color: #454d3c;
+}
+
+.sp-warn {
+  background: rgba(161, 132, 72, 0.18);
+  color: #7a5f22;
+}
+
+.sp-bad {
+  background: rgba(182, 91, 80, 0.16);
+  color: #9a463c;
+}
+
+/* Chips on their own line below */
+
+.sp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--border, #deded8);
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--text-strong, #34352f);
+  white-space: nowrap;
+}
+
+.sp-icon {
+  display: inline-flex;
+}
+
+.sp-icon-red {
+  color: #b65b50;
+}
+
+.sp-icon-amber {
+  color: #a18448;
+}
+
+/* Lighter label colours on the dark theme */
+
+:root[data-theme="dark"] .sp-ok {
+  color: #b5c0a3;
+}
+
+:root[data-theme="dark"] .sp-warn {
+  color: #d9b866;
+}
+
+:root[data-theme="dark"] .sp-bad {
+  color: #e48a7d;
+}
