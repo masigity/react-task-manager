@@ -1,3 +1,38 @@
+# Task Manager App
+
+A compact task manager built with React. Add tasks with a priority, search and filter them, and track progress with a status panel and two small charts. Everything is saved in your browser, so no account or server is needed.
+
+[Task Manager App screenshot](docs/screenshot.png)
+
+## 🌐 Live Website
+
+Check out my live project here:
+
+[Task Manager App](https://masigity.github.io/react-task-manager/)
+
+## Features
+
+- Add, edit, complete and delete tasks, each with a Low, Medium or High priority
+- Search, plus status and priority filters with live counts
+- Status panel: On track, Busy or Falling behind, with tasks left and finished today
+- Doughnut and bar charts of your tasks
+- Activity log of every change
+- Light and dark mode, saved automatically
+
+## Getting started
+
+```bash
+git clone https://github.com/masigity/react-task-manager.git
+cd react-task-manager
+npm install
+npm run dev
+```
+
+## Tech
+
+React, plain CSS and inline SVG. No UI or chart libraries.
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
