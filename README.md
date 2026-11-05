@@ -8,7 +8,10 @@ A compact task manager built with React. Add tasks with a priority, search and f
 
 Check out my live project here:
 
-[Task Manager App](https://masigity.github.io/react-task-manager/)
+<p align="center">
+  <img src="docs/screenshot.png" alt="Task Manager App screenshot" width="600">
+</p>
+
 
 ## Features
 
