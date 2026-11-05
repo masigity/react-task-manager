@@ -1,21 +1,8 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
 import "./DashboardCharts.css";
 
 const STATUS_COLOURS = {
   Completed: "#78816a",
-  Pending: "#b4b2a9",
+  Pending: "var(--pending, #b4b2a9)",
 };
 
 const PRIORITY_COLOURS = {
@@ -23,6 +10,10 @@ const PRIORITY_COLOURS = {
   Medium: "#d9b866",
   High: "#b65b50",
 };
+
+// Doughnut geometry (SVG viewBox is 120 x 120)
+const RADIUS = 48;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 function DashboardCharts({ tasks }) {
   if (tasks.length === 0) {
@@ -36,11 +27,7 @@ function DashboardCharts({ tasks }) {
   const completedCount = tasks.filter((task) => task.completed).length;
   const pendingCount = tasks.length - completedCount;
   const completionRate = Math.round((completedCount / tasks.length) * 100);
-
-  const statusData = [
-    { name: "Completed", value: completedCount },
-    { name: "Pending", value: pendingCount },
-  ];
+  const completedLength = (completedCount / tasks.length) * CIRCUMFERENCE;
 
   // Open (not completed) tasks per priority
   const priorityData = ["Low", "Medium", "High"].map((name) => ({
@@ -49,6 +36,20 @@ function DashboardCharts({ tasks }) {
       (task) => !task.completed && (task.priority || "Medium") === name
     ).length,
   }));
+
+  // Y-axis scale for the bar chart
+  const maxCount = Math.max(...priorityData.map((item) => item.count), 1);
+  const step = maxCount <= 4 ? 1 : Math.ceil(maxCount / 4);
+  const topValue = maxCount <= 4 ? maxCount : step * 4;
+  const ticks = [];
+
+  for (let value = 0; value <= topValue; value += step) {
+    ticks.push(value);
+  }
+
+  const priorityLabel = priorityData
+    .map((item) => `${item.name} ${item.count}`)
+    .join(", ");
 
   return (
     <section className="dc-panel">
@@ -74,27 +75,36 @@ function DashboardCharts({ tasks }) {
         </div>
 
         <div className="dc-chart-box">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={statusData}
-                dataKey="value"
-                nameKey="name"
-                innerRadius="68%"
-                outerRadius="100%"
-                startAngle={90}
-                endAngle={-270}
-                stroke="#ffffff"
-                strokeWidth={3}
-                isAnimationActive={false}
-              >
-                {statusData.map((entry) => (
-                  <Cell key={entry.name} fill={STATUS_COLOURS[entry.name]} />
-                ))}
-              </Pie>
-              <Tooltip contentStyle={{ fontSize: 12 }} />
-            </PieChart>
-          </ResponsiveContainer>
+          <svg
+            className="dc-donut"
+            viewBox="0 0 120 120"
+            role="img"
+            aria-label={`${completedCount} of ${tasks.length} tasks completed`}
+          >
+            <circle
+              cx="60"
+              cy="60"
+              r={RADIUS}
+              fill="none"
+              style={{ stroke: STATUS_COLOURS.Pending }}
+              strokeWidth="16"
+            >
+              <title>{`Pending: ${pendingCount}`}</title>
+            </circle>
+
+            <circle
+              cx="60"
+              cy="60"
+              r={RADIUS}
+              fill="none"
+              stroke={STATUS_COLOURS.Completed}
+              strokeWidth="16"
+              strokeDasharray={`${completedLength} ${CIRCUMFERENCE}`}
+              transform="rotate(-90 60 60)"
+            >
+              <title>{`Completed: ${completedCount}`}</title>
+            </circle>
+          </svg>
 
           <div className="dc-center">
             <strong>{completionRate}%</strong>
@@ -112,42 +122,48 @@ function DashboardCharts({ tasks }) {
         </div>
 
         <div className="dc-chart-box">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={priorityData}
-              margin={{ top: 8, right: 8, left: -20, bottom: 0 }}
-            >
-              <CartesianGrid vertical={false} stroke="#e5e5df" />
-              <XAxis
-                dataKey="name"
-                tickLine={false}
-                axisLine={{ stroke: "#deded8" }}
-                tick={{ fontSize: 11, fill: "#85857d" }}
-              />
-              <YAxis
-                allowDecimals={false}
-                domain={[0, (max) => Math.max(max, 1)]}
-                tickLine={false}
-                axisLine={false}
-                tick={{ fontSize: 11, fill: "#85857d" }}
-              />
-              <Tooltip
-                cursor={{ fill: "#eeeeea" }}
-                contentStyle={{ fontSize: 12 }}
-              />
-              <Bar
-                dataKey="count"
-                name="Tasks"
-                radius={[4, 4, 0, 0]}
-                maxBarSize={36}
-                isAnimationActive={false}
-              >
-                {priorityData.map((entry) => (
-                  <Cell key={entry.name} fill={PRIORITY_COLOURS[entry.name]} />
+          <div
+            className="dc-bars"
+            role="img"
+            aria-label={`Pending tasks by priority: ${priorityLabel}`}
+          >
+            <div className="dc-plot">
+              {ticks.map((tick) => (
+                <div
+                  className="dc-grid"
+                  key={tick}
+                  style={{ bottom: `${(tick / topValue) * 100}%` }}
+                >
+                  <span>{tick}</span>
+                </div>
+              ))}
+
+              <div className="dc-bar-row">
+                {priorityData.map((item) => (
+                  <div
+                    className="dc-bar-col"
+                    key={item.name}
+                    title={`${item.name}: ${item.count} pending`}
+                  >
+                    <span className="dc-bar-value">{item.count}</span>
+                    <div
+                      className="dc-bar"
+                      style={{
+                        height: `${(item.count / topValue) * 100}%`,
+                        background: PRIORITY_COLOURS[item.name],
+                      }}
+                    />
+                  </div>
                 ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="dc-axis">
+              {priorityData.map((item) => (
+                <span key={item.name}>{item.name}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

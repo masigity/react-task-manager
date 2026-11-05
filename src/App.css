@@ -1,14 +1,62 @@
 
 /* ===== TaskFlow: Compact Interface ===== */
 
+/* ===== Theme colours (light is the default, dark is set by data-theme) ===== */
+
+:root {
+  --bg: #f7f7f4;
+  --panel: #fcfcfa;
+  --control: #ffffff;
+  --border: #deded8;
+  --border-soft: #e5e5df;
+  --text: #24251f;
+  --text-strong: #34352f;
+  --text-soft: #77786f;
+  --text-muted: #85857d;
+  --text-faint: #92928a;
+  --hover: #eeeeea;
+  --active-bg: #e9ebe5;
+  --accent: #78816a;
+  --accent-dark: #626d55;
+  --accent-text: #454d3c;
+  --danger: #cb4b3c;
+  --pending: #b4b2a9;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1b1c18;
+  --panel: #23241f;
+  --control: #2c2d28;
+  --border: #3a3b35;
+  --border-soft: #2f302b;
+  --text: #e8e8e1;
+  --text-strong: #d9d9d1;
+  --text-soft: #a8a89f;
+  --text-muted: #9b9b92;
+  --text-faint: #7f7f77;
+  --hover: #2d2e29;
+  --active-bg: #33362d;
+  --accent: #78816a;
+  --accent-dark: #6a735d;
+  --accent-text: #b5c0a3;
+  --danger: #e0695a;
+  --pending: #55564f;
+}
+
+body {
+  background: var(--bg);
+}
+
+
 #root {
   min-height: 100vh;
 }
 
 .app {
   min-height: 100vh;
-  background: #f7f7f4;
-  color: #24251f;
+  background: var(--bg);
+  color: var(--text);
   font-family: Arial, sans-serif;
 }
 
@@ -28,8 +76,8 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #deded8;
-  background: #f7f7f4;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
 }
 
 .logo {
@@ -53,7 +101,7 @@ select {
   font-size: 10px;
   font-weight: normal;
   margin: 2px 0 0;
-  color: #888;
+  color: var(--text-muted);
 }
 
 .logo-icon {
@@ -61,15 +109,37 @@ select {
   height: 30px;
   display: grid;
   place-items: center;
-  background: #78816a;
+  background: var(--accent);
   color: white;
   font-size: 20px;
   font-weight: bolder;
 }
 
+/* Theme toggle (right side of the header) */
+
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
 .header-user {
   font-size: 11px;
-  color: #85857d;
+  color: var(--text-muted);
   letter-spacing: 0.5px;
 }
 
@@ -86,7 +156,7 @@ select {
   width: 170px;
   flex-shrink: 0;
   padding: 20px 12px;
-  border-right: 1px solid #deded8;
+  border-right: 1px solid var(--border);
 }
 
 .sidebar nav {
@@ -101,18 +171,18 @@ select {
   gap: 9px;
   padding: 9px 10px;
   text-decoration: none;
-  color: #77786f;
+  color: var(--text-soft);
   font-size: 12px;
   transition: background 0.15s ease;
 }
 
 .sidebar-link:hover {
-  background: #eeeee8;
+  background: var(--hover);
 }
 
 .sidebar-link.active {
-  background: #e9eae2;
-  color: #34382c;
+  background: var(--active-bg);
+  color: var(--accent-text);
   font-weight: 600;
 }
 
@@ -140,7 +210,7 @@ select {
 
 .welcome-section p {
   font-size: 12px;
-  color: #85857d;
+  color: var(--text-muted);
 }
 
 /* Statistics */
@@ -151,8 +221,8 @@ select {
   gap: 28px;
   padding: 13px 0;
   margin-bottom: 24px;
-  border-top: 1px solid #deded8;
-  border-bottom: 1px solid #deded8;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .stat-card {
@@ -169,7 +239,7 @@ select {
 
 .stat-label {
   font-size: 11px;
-  color: #85857d;
+  color: var(--text-muted);
 }
 
 /* Tasks section */
@@ -183,8 +253,8 @@ select {
 .empty-message {
   padding: 20px 0;
   font-size: 12px;
-  color: #92928a;
-  border-top: 1px solid #deded8;
+  color: var(--text-faint);
+  border-top: 1px solid var(--border);
 }
 
 /* Task form */
@@ -194,9 +264,9 @@ select {
   gap: 7px;
   padding: 14px;
   margin: 0 0 12px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fcfcfa;
+  background: var(--panel);
 }
 
 .task-form input {
@@ -204,16 +274,16 @@ select {
   min-width: 0;
   height: 34px;
   padding: 0 10px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 3px;
-  background: #fff;
+  background: var(--control);
   font-size: 12px;
-  color: #24251f;
+  color: var(--text);
   outline: none;
 }
 
 .task-form input:focus {
-  border-color: #78816a;
+  border-color: var(--accent);
 }
 
 .task-form button {
@@ -221,14 +291,14 @@ select {
   padding: 0 13px;
   border: none;
   border-radius: 3px;
-  background: #78816a;
+  background: var(--accent);
   color: white;
   font-size: 11px;
   cursor: pointer;
 }
 
 .task-form button:hover {
-  background: #626d55;
+  background: var(--accent-dark);
 }
 
 /* Priority select in the add-task form matches the input and button height */
@@ -276,9 +346,9 @@ select {
 
 .task-list {
   padding: 0 14px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fcfcfa;
+  background: var(--panel);
 }
 
 .task-row {
@@ -286,7 +356,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #deded8;
+  border-bottom: 1px solid var(--border);
   padding: 0 4px;
 }
 
@@ -296,20 +366,20 @@ select {
 
 .task-title {
   font-size: 12px;
-  color: #34352f;
+  color: var(--text-strong);
 }
 
 .task-status {
   min-width: 64px;
   font-size: 11px;
-  color: #85857d;
+  color: var(--text-muted);
 }
 
 .empty-message {
-  border-top: 1px solid #deded8;
+  border-top: 1px solid var(--border);
   padding: 14px 0;
   font-size: 12px;
-  color: #92928a;
+  color: var(--text-faint);
 }
 
 /* Completed Task */
@@ -321,31 +391,31 @@ select {
 }
 
 .task-information input {
-  accent-color: #78816a;
+  accent-color: var(--accent);
   cursor: pointer;
 }
 
 .task-title.completed {
   text-decoration: line-through;
-  color: #92928a;
+  color: var(--text-faint);
 }
 
 .completed-status {
-  color: #78816a;
+  color: var(--accent);
 }
 
 /* Delete Task */
 /* Delete Button */
 
 .delete-button {
-  color: #92928a;
+  color: var(--text-faint);
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .delete-button:hover {
   transform: scale(1.2);
   opacity: 0.7;
-  color: #cb4b3c;
+  color: var(--danger);
 }
 
 /* Task Actions */
@@ -377,21 +447,21 @@ select {
 /* Edit and Save */
 
 .edit-button {
-  color: #78816a;
+  color: var(--accent);
 }
 
 .edit-button:hover {
-  color: #454d3c;
+  color: var(--accent-text);
 }
 
 /* Cancel */
 
 .cancel-button {
-  color: #92928a;
+  color: var(--text-faint);
 }
 
 .cancel-button:hover {
-  color: #cb4b3c;
+  color: var(--danger);
 }
 
 /* Edit Input */
@@ -401,11 +471,11 @@ select {
   min-width: 100px;
   height: 28px;
   padding: 0 6px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 3px;
-  background: white;
+  background: var(--control);
   font-size: 12px;
-  color: #34352f;
+  color: var(--text-strong);
 }
 
 
@@ -419,20 +489,20 @@ select {
   width: 100%;
   max-width: 320px;
   padding: 8px 10px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 3px;
-  background: #fff;
-  color: #34352f;
+  background: var(--control);
+  color: var(--text-strong);
   font-size: 12px;
   outline: none;
 }
 
 .search-input:focus {
-  border-color: #78816a;
+  border-color: var(--accent);
 }
 
 .search-input::placeholder {
-  color: #92928a;
+  color: var(--text-faint);
 }
 
 
@@ -465,9 +535,9 @@ select {
   gap: 10px;
   padding: 14px;
   margin-bottom: 12px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fcfcfa;
+  background: var(--panel);
 }
 
 .search-box {
@@ -480,7 +550,7 @@ select {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #92928a;
+  color: var(--text-faint);
   pointer-events: none;
 }
 
@@ -507,9 +577,9 @@ select {
   height: 32px;
   padding: 0 10px;
   background: transparent;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 0;
-  color: #85857d;
+  color: var(--text-muted);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -537,14 +607,14 @@ select {
   align-items: center;
   justify-content: center;
   border-radius: 9px;
-  background: #eeeeea;
-  color: #77786f;
+  background: var(--hover);
+  color: var(--text-soft);
   font-size: 11px;
 }
 
 .filter-button:hover {
-  border-color: #78816a;
-  color: #454d3c;
+  border-color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* Priority filter row (same layout as the status filter row) */
@@ -560,7 +630,7 @@ select {
   width: 60px;
   flex-shrink: 0;
   font-size: 12px;
-  color: #77786f;
+  color: var(--text-soft);
 }
 
 .filter-button:hover,
@@ -569,8 +639,8 @@ select {
 }
 
 .filter-button.active {
-  background: #78816a;
-  border-color: #78816a;
+  background: var(--accent);
+  border-color: var(--accent);
   color: white;
 }
 
@@ -597,12 +667,12 @@ select {
 .stat-value {
   font-size: 21px;
   font-weight: 500;
-  color: #34352f;
+  color: var(--text-strong);
 }
 
 .stat-label {
   font-size: 10px;
-  color: #85857d;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -610,14 +680,14 @@ select {
 .stats-progress {
   grid-column: 1 / -1;
   height: 4px;
-  background: #e5e5df;
+  background: var(--border-soft);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .stats-progress-fill {
   height: 100%;
-  background: #78816a;
+  background: var(--accent);
   transition: width 0.3s ease;
 }
 
@@ -657,7 +727,7 @@ select {
 }
 
 .priority-low {
-  background: #78816a;
+  background: var(--accent);
   color: white;
 }
 
@@ -666,10 +736,10 @@ select {
 .priority-edit-select {
   height: 28px;
   padding: 0 6px;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 3px;
-  background: white;
-  color: #34352f;
+  background: var(--control);
+  color: var(--text-strong);
   font-size: 12px;
   cursor: pointer;
 }
@@ -691,20 +761,20 @@ select {
   background: transparent;
   border: none;
   border-radius: 4px;
-  color: #77786f;
+  color: var(--text-soft);
   font-size: 12px;
   text-align: left;
   cursor: pointer;
 }
 
 .sidebar-link:hover {
-  background: #eeeeea;
-  color: #24251f;
+  background: var(--hover);
+  color: var(--text);
 }
 
 .sidebar-link.active {
-  background: #e9ebe5;
-  color: #454d3c;
+  background: var(--active-bg);
+  color: var(--accent-text);
   font-weight: 600;
 }
 
@@ -732,7 +802,7 @@ select {
 .activity-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #deded8;
+  border-top: 1px solid var(--border);
 }
 
 .activity-row {
@@ -741,7 +811,7 @@ select {
   align-items: center;
   gap: 20px;
   padding: 14px 4px;
-  border-bottom: 1px solid #deded8;
+  border-bottom: 1px solid var(--border);
 }
 
 .activity-information {
@@ -751,7 +821,7 @@ select {
 }
 
 .activity-action {
-  color: #78816a;
+  color: var(--accent);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -759,12 +829,12 @@ select {
 }
 
 .activity-task-title {
-  color: #34352f;
+  color: var(--text-strong);
   font-size: 13px;
 }
 
 .activity-time {
-  color: #92938a;
+  color: var(--text-faint);
   font-size: 11px;
   white-space: nowrap;
 }
@@ -772,14 +842,14 @@ select {
 .clear-log-button {
   padding: 6px 12px;
   background: transparent;
-  border: 1px solid #deded8;
+  border: 1px solid var(--border);
   border-radius: 3px;
-  color: #77786f;
+  color: var(--text-soft);
   font-size: 11px;
   cursor: pointer;
 }
 
 .clear-log-button:hover {
-  background: #eeeeea;
-  color: #34352f;
+  background: var(--hover);
+  color: var(--text-strong);
 }
