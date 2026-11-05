@@ -2,16 +2,15 @@
 
 A compact task manager built with React. Add tasks with a priority, search and filter them, and track progress with a status panel and two small charts. Everything is saved in your browser, so no account or server is needed.
 
-[Task Manager App screenshot](docs/screenshot.png)
+<p align="center">
+  <img src="docs/screenshot.png" alt="Task Manager App screenshot" width="600">
+</p>
 
 ## 🌐 Live Website
 
 Check out my live project here:
 
-<p align="center">
-  <img src="docs/screenshot.png" alt="Task Manager App screenshot" width="600">
-</p>
-
+[Task Manager App](https://masigity.github.io/react-task-manager/)
 
 ## Features
 
