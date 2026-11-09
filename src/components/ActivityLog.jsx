@@ -1,4 +1,17 @@
 
+// Pick the badge colour from the type of action
+function getActionClass(action) {
+  if (action === "Task edited") {
+    return "action-edited";
+  } else if (action === "Task deleted") {
+    return "action-deleted";
+  } else if (action === "Task marked as pending") {
+    return "action-pending";
+  }
+
+  return "";
+}
+
 function ActivityLog({ activityLog, onClearLog }) {
   if (activityLog.length === 0) {
     return (
@@ -33,7 +46,11 @@ function ActivityLog({ activityLog, onClearLog }) {
           return (
             <div className="activity-row" key={activity.id}>
               <div className="activity-information">
-                <span className="activity-action">
+                <span
+                  className={
+                    "activity-action " + getActionClass(activity.action)
+                  }
+                >
                   {activity.action}
                 </span>
 

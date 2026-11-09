@@ -799,10 +799,14 @@ select {
   font-weight: 600;
 }
 
+/* The list sits in a panel, like the task list */
 .activity-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--border);
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--panel);
 }
 
 .activity-row {
@@ -810,22 +814,60 @@ select {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 14px 4px;
+  padding: 12px 0;
   border-bottom: 1px solid var(--border);
+}
+
+.activity-row:last-child {
+  border-bottom: none;
 }
 
 .activity-information {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: flex-start;
+  gap: 6px;
 }
 
+/* Action badge, coloured by type */
 .activity-action {
-  color: var(--accent);
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(120, 129, 106, 0.18);
+  color: var(--accent-text);
   font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.action-edited {
+  background: rgba(161, 132, 72, 0.18);
+  color: #7a5f22;
+}
+
+.action-deleted {
+  background: rgba(182, 91, 80, 0.16);
+  color: #9a463c;
+}
+
+.action-pending {
+  background: var(--hover);
+  color: var(--text-soft);
+}
+
+:root[data-theme="dark"] .action-edited {
+  color: #d9b866;
+}
+
+:root[data-theme="dark"] .action-deleted {
+  color: #e48a7d;
+}
+
+/* Empty state in a panel too */
+.activity-section .empty-message {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--panel);
 }
 
 .activity-task-title {
@@ -840,7 +882,8 @@ select {
 }
 
 .clear-log-button {
-  padding: 6px 12px;
+  height: 32px;
+  padding: 0 12px;
   background: transparent;
   border: 1px solid var(--border);
   border-radius: 3px;

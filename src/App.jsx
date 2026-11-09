@@ -76,7 +76,13 @@ function App() {
       id: Date.now(),
       action: action,
       taskTitle: taskTitle,
-      date: new Date().toLocaleString("en-GB"),
+      date: new Date().toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     };
 
     setActivityLog(function (previousActivityLog) {
