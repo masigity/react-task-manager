@@ -12,6 +12,7 @@ function TaskList({
   searchTerm,
   filterStatus,
   filterPriority,
+  selectedDay,
   onToggleTask,
   onDeleteTask,
   onEditTask,
@@ -51,7 +52,9 @@ function TaskList({
   if (tasks.length === 0) {
   let emptyMessage = "You don't have any tasks yet.";
 
-  if (searchTerm && filterPriority !== "All") {
+  if (selectedDay) {
+    emptyMessage = "No tasks match this day and your filters.";
+  } else if (searchTerm && filterPriority !== "All") {
     emptyMessage = `No ${filterPriority.toLowerCase()} priority tasks match your search.`;
   } else if (searchTerm) {
     emptyMessage = "No tasks match your search.";

@@ -1,0 +1,161 @@
+/* ===== Calendar (self-contained, all classes start with cal-) ===== */
+
+.cal-panel {
+  padding: 12px 14px;
+  border: 1px solid var(--border, #deded8);
+  border-radius: 4px;
+  background: var(--panel, #fcfcfa);
+  font-family: inherit;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-strong, #34352f);
+}
+
+.cal-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.cal-nav button {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border, #deded8);
+  border-radius: 4px;
+  color: var(--text-soft, #77786f);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cal-nav button:hover {
+  background: var(--hover, #eeeeea);
+  color: var(--text, #24251f);
+}
+
+/* Month grid, Monday first */
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.cal-weekday {
+  padding: 2px 0;
+  text-align: center;
+  font-size: 10px;
+  color: var(--text-muted, #85857d);
+}
+
+.cal-day,
+.cal-empty {
+  height: 34px;
+}
+
+.cal-day {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  color: var(--text-strong, #34352f);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+button.cal-day {
+  cursor: pointer;
+}
+
+button.cal-day:hover {
+  border-color: var(--accent, #78816a);
+}
+
+button.cal-day:focus-visible,
+.cal-nav button:focus-visible,
+.cal-clear:focus-visible {
+  outline: 2px solid var(--accent, #78816a);
+  outline-offset: 1px;
+}
+
+/* Number of tasks on the day: a darker tint for more tasks, plus a
+   small count so colour is not the only signal */
+
+.cal-level-1 {
+  background: rgba(120, 129, 106, 0.18);
+}
+
+.cal-level-2 {
+  background: rgba(120, 129, 106, 0.34);
+}
+
+.cal-level-3 {
+  background: rgba(120, 129, 106, 0.52);
+}
+
+.cal-day small {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  font-size: 10px;
+  color: var(--text-soft, #77786f);
+}
+
+/* Today gets a ring, the clicked day is filled */
+
+.cal-today {
+  border-color: var(--accent, #78816a);
+  font-weight: 600;
+}
+
+.cal-selected {
+  background: var(--accent, #78816a);
+  color: #ffffff;
+}
+
+.cal-selected small {
+  color: #ffffff;
+}
+
+/* Footer text and clear link */
+
+.cal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 22px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-muted, #85857d);
+}
+
+.cal-clear {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--accent-text, #454d3c);
+  font-family: inherit;
+  font-size: 11px;
+  text-decoration: underline;
+  cursor: pointer;
+}

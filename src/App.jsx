@@ -9,6 +9,8 @@ import ActivityLog from "./components/ActivityLog";
 import { SearchIcon } from "./components/Icons";
 import DashboardCharts from "./components/DashboardCharts";
 import StatusPanel from "./components/StatusPanel";
+import Calendar from "./components/Calendar";
+import { getTaskDayKey } from "./components/taskDates";
 
 import "./App.css";
 
@@ -68,6 +70,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
+
+  // Day picked in the calendar (for example "2026-11-09"), or null
+  const [selectedDay, setSelectedDay] = useState(null);
 
 
   // Add a record to the activity log
@@ -130,11 +135,11 @@ function App() {
 
     for (let i = 0; i < tasks.length; i++) {
       if (tasks[i].id === taskId) {
+        // Copy every field, then change only what is needed
+        // (so fields added later are never lost)
         const updatedTask = {
-          id: tasks[i].id,
-          title: tasks[i].title,
+          ...tasks[i],
           completed: !tasks[i].completed,
-          priority: tasks[i].priority,
         };
 
         updatedTasks.push(updatedTask);
@@ -202,9 +207,8 @@ function App() {
     for (let i = 0; i < tasks.length; i++) {
       if (tasks[i].id === taskId) {
         const updatedTask = {
-          id: tasks[i].id,
+          ...tasks[i],
           title: newTitle,
-          completed: tasks[i].completed,
           priority: newPriority,
         };
 
@@ -307,7 +311,11 @@ function App() {
       matchesPriority = true;
     }
 
-    if (matchesSearch && matchesStatus && matchesPriority) {
+    // Only the day picked in the calendar (all days when none is picked)
+    const matchesDay =
+      selectedDay === null || getTaskDayKey(currentTask) === selectedDay;
+
+    if (matchesSearch && matchesStatus && matchesPriority && matchesDay) {
       filteredTasks.push(currentTask);
     }
   }
@@ -330,8 +338,16 @@ function App() {
             <section className="tasks-section">
               <StatusPanel tasks={tasks} activityLog={activityLog} />
 
-              {/* One section: filters on the left, charts on the right */}
+              {/* Calendar on the left, charts on the right */}
               <div className="overview">
+                <Calendar
+                  tasks={tasks}
+                  selectedDay={selectedDay}
+                  onSelectDay={setSelectedDay}
+                />
+
+                <DashboardCharts tasks={tasks} />
+              </div>
 
               {/* Search and filters panel */}
               <div className="filter-panel">
@@ -418,10 +434,6 @@ function App() {
 
               </div>
 
-              <DashboardCharts tasks={tasks} />
-
-              </div>
-
 
               <TaskForm onAddTask={addTask} />
 
@@ -430,6 +442,7 @@ function App() {
                 searchTerm={searchTerm}
                 filterStatus={filterStatus}
                 filterPriority={filterPriority}
+                selectedDay={selectedDay}
                 onToggleTask={toggleTask}
                 onDeleteTask={deleteTask}
                 onEditTask={editTask}
