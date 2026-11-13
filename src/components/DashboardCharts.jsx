@@ -15,11 +15,14 @@ const PRIORITY_COLOURS = {
 const RADIUS = 48;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-function DashboardCharts({ tasks }) {
+function DashboardCharts({
+  tasks,
+  emptyMessage = "Add a task to see your charts.",
+}) {
   if (tasks.length === 0) {
     return (
       <section className="dc-panel">
-        <p className="dc-empty">Add a task to see your charts.</p>
+        <p className="dc-empty">{emptyMessage}</p>
       </section>
     );
   }

@@ -20,10 +20,17 @@ function Calendar({ tasks, selectedDay, onSelectDay }) {
 
   // Count how many tasks belong to each day
   const countsByDay = {};
+  let withoutDateCount = 0;
 
   for (let i = 0; i < tasks.length; i++) {
     const dayKey = getTaskDayKey(tasks[i]);
-    countsByDay[dayKey] = (countsByDay[dayKey] || 0) + 1;
+
+    if (dayKey === null) {
+      // Tasks without a due date belong to no day
+      withoutDateCount++;
+    } else {
+      countsByDay[dayKey] = (countsByDay[dayKey] || 0) + 1;
+    }
   }
 
   // The week starts on Monday, so work out how many empty cells come first
@@ -144,7 +151,7 @@ function Calendar({ tasks, selectedDay, onSelectDay }) {
       <div className="cal-footer">
         {selectedDay ? (
           <>
-            <span>Showing tasks from {selectedText}</span>
+            <span>Showing tasks and charts for {selectedText}</span>
             <button
               className="cal-clear"
               type="button"
@@ -156,7 +163,13 @@ function Calendar({ tasks, selectedDay, onSelectDay }) {
             </button>
           </>
         ) : (
-          <span>Click a day to list its tasks</span>
+          <>
+            <span>Click a day to list its tasks</span>
+
+            {withoutDateCount > 0 && (
+              <span>{withoutDateCount} without a due date</span>
+            )}
+          </>
         )}
       </div>
     </section>

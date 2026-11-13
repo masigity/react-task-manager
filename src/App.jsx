@@ -102,12 +102,13 @@ function App() {
 
 
   // Add task
-  function addTask(title, priority) {
+  function addTask(title, priority, dueDate) {
     const newTask = {
       id: Date.now(),
       title: title,
       completed: false,
       priority: priority,
+      dueDate: dueDate,
     };
 
     setTasks([...tasks, newTask]);
@@ -188,7 +189,7 @@ function App() {
 
 
   // Edit task
-  function editTask(taskId, newTitle, newPriority) {
+  function editTask(taskId, newTitle, newPriority, newDueDate) {
     let oldTask = null;
 
     for (let i = 0; i < tasks.length; i++) {
@@ -210,6 +211,7 @@ function App() {
           ...tasks[i],
           title: newTitle,
           priority: newPriority,
+          dueDate: newDueDate,
         };
 
         updatedTasks.push(updatedTask);
@@ -321,6 +323,17 @@ function App() {
   }
 
 
+  // Tasks for the charts: only the day picked in the calendar,
+  // or all tasks when no day is picked
+  const tasksForCharts = [];
+
+  for (let i = 0; i < tasks.length; i++) {
+    if (selectedDay === null || getTaskDayKey(tasks[i]) === selectedDay) {
+      tasksForCharts.push(tasks[i]);
+    }
+  }
+
+
   return (
     <div className="app">
       <Header />
@@ -346,7 +359,12 @@ function App() {
                   onSelectDay={setSelectedDay}
                 />
 
-                <DashboardCharts tasks={tasks} />
+                <DashboardCharts
+                  tasks={tasksForCharts}
+                  emptyMessage={
+                    selectedDay ? "No tasks on this day." : undefined
+                  }
+                />
               </div>
 
               {/* Search and filters panel */}
